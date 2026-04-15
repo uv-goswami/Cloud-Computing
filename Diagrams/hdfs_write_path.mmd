@@ -1,0 +1,20 @@
+```mermaid
+sequenceDiagram
+    participant C as HDFS Client
+    participant NN as NameNode
+    participant DN1 as DataNode 1 (AZ-a)
+    participant DN2 as DataNode 2 (AZ-b)
+    participant DN3 as DataNode 3 (AZ-c)
+
+    C->>NN: create("/data/bigfile.txt")
+    NN->>C: BlockID=1001, pipeline=[DN1,DN2,DN3]
+    C->>DN1: Write block (128MB)
+    DN1->>DN2: Pipeline replicate
+    DN2->>DN3: Pipeline replicate
+    DN3->>DN2: ACK
+    DN2->>DN1: ACK
+    DN1->>C: ACK (3 replicas confirmed)
+    C->>NN: Block 1 complete
+    NN->>C: BlockID=1002, pipeline=[DN2,DN4,DN5]
+    Note over C: Different nodes per block = balanced load
+```

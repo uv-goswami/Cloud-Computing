@@ -1,0 +1,21 @@
+```mermaid
+graph TB
+    subgraph User_Space["User Space"]
+        QEMU["QEMU Process (per VM)\nEmulates: NIC, disk, USB\nManages VM memory"]
+        LibVirt["libvirt\nVM management API"]
+    end
+    subgraph Kernel_Space["Linux Kernel"]
+        KVM["kvm.ko + kvm-intel.ko\nExposes /dev/kvm\nHandles VMENTER/VMEXIT"]
+        Sched["CFS Scheduler\nSchedules vCPUs as threads"]
+        MM["Memory Manager\nEPT page table management"]
+    end
+    subgraph HW["CPU Hardware"]
+        VTX["Intel VT-x\nVMCS, VMLAUNCH, VMRESUME\nHardware trap to VMM"]
+    end
+
+    LibVirt --> QEMU
+    QEMU -->|"ioctl(/dev/kvm)"| KVM
+    KVM --> VTX & Sched & MM
+    VTX -->|"VMEXIT events"| KVM
+    KVM -->|"I/O exits"| QEMU
+```

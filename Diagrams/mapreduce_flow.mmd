@@ -1,0 +1,10 @@
+```mermaid
+flowchart LR
+    Input["Input: 1TB HDFS file"] --> Split["Split into 128MB chunks"]
+    Split --> M1["Mapper 1\nLocal disk output\n(word,1) pairs"]
+    Split --> M2["Mapper 2\nLocal disk output"]
+    Split --> MN["Mapper N"]
+    M1 & M2 & MN --> Shuffle["Shuffle + Sort\nhash(word) % reducers\nAll 'apple' → Reducer 1\nSorted stream per reducer\nNETWORK BOTTLENECK"]
+    Shuffle --> R1["Reducer 1\napple:[1,1,1] → apple:3\nHDFS output"]
+    Shuffle --> R2["Reducer 2\nbanana:[1,1] → banana:2"]
+```

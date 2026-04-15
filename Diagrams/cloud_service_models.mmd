@@ -1,0 +1,14 @@
+```mermaid
+graph TB
+    SaaS["SaaS — Gmail, Salesforce, Office 365\nConsumer manages: Data only"]
+    PaaS["PaaS — Heroku, App Engine, Elastic Beanstalk\nConsumer manages: App + Data"]
+    IaaS["IaaS — EC2, Azure VMs, GCE\nConsumer manages: OS + App + Data"]
+    Phys["Physical Infrastructure\nProvider manages: Hardware, DC, Network"]
+    SaaS --> PaaS --> IaaS --> Phys
+
+    subgraph Responsibility["Shared Responsibility"]
+        YouIaaS["IaaS YOU: OS, Runtime, App, Data"]
+        YouPaaS["PaaS YOU: App, Data"]
+        YouSaaS["SaaS YOU: Data only"]
+    end
+```

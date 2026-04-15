@@ -1,0 +1,25 @@
+```mermaid
+graph TB
+    subgraph Type1["Type-1 Hypervisor (Bare Metal)"]
+        T1_VMs["VM1 | VM2 | VM3 (Guest OSes)"]
+        T1_HV["Hypervisor: VMware ESXi / KVM / Hyper-V"]
+        T1_HW["Physical Hardware"]
+        T1_VMs --> T1_HV --> T1_HW
+    end
+
+    subgraph Type2["Type-2 Hypervisor (Hosted)"]
+        T2_VMs["VM1 | VM2 (Guest OSes)"]
+        T2_HV["Hypervisor: VirtualBox / VMware Workstation"]
+        T2_OS["Host OS: Windows / Linux / macOS"]
+        T2_HW["Physical Hardware"]
+        T2_VMs --> T2_HV --> T2_OS --> T2_HW
+    end
+
+    subgraph Containers["OS-Level Virtualization"]
+        C_Apps["Container A | Container B | Container C\n(App + Libs only, no Guest OS)"]
+        C_Runtime["Container Runtime: containerd + runc"]
+        C_OS["Host OS Kernel (SHARED)"]
+        C_HW["Physical Hardware"]
+        C_Apps --> C_Runtime --> C_OS --> C_HW
+    end
+```

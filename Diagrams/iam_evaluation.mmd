@@ -1,0 +1,18 @@
+```mermaid
+flowchart TD
+    Req["API Request\nPrincipal + Action + Resource"]
+    S1{"Explicit DENY\nin any policy?"}
+    S2{"Explicit ALLOW\nin identity policy?"}
+    S3{"Explicit ALLOW\nin resource policy?"}
+    S4{"Permission boundary\nalso allows?"}
+
+    Req --> S1
+    S1 -->|Yes| DENY["DENY\nCannot be overridden"]
+    S1 -->|No| S2
+    S2 -->|Yes| S4
+    S2 -->|No| S3
+    S3 -->|No| IMPLICIT_DENY["IMPLICIT DENY\nDefault deny all"]
+    S3 -->|Yes| ALLOW["ALLOW"]
+    S4 -->|Yes| ALLOW
+    S4 -->|No| DENY2["DENY\nBoundary blocks it"]
+```

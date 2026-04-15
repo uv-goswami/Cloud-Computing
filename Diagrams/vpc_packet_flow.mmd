@@ -1,0 +1,19 @@
+```mermaid
+sequenceDiagram
+    participant Browser as Browser
+    participant IGW as Internet Gateway
+    participant NitroNW as Nitro Network Card
+    participant SG as Security Group (hardware)
+    participant EC2 as EC2 Instance
+
+    Browser->>IGW: HTTP request to Public IP
+    IGW->>NitroNW: VXLAN-encapsulated packet to physical host
+    NitroNW->>SG: Check inbound rules
+    Note over SG: Port 80 allowed? YES
+    SG->>EC2: Deliver inner packet
+    EC2->>SG: Response
+    Note over SG: Stateful: return allowed automatically
+    SG->>NitroNW: Forward
+    NitroNW->>IGW: VXLAN decap
+    IGW->>Browser: Response
+```

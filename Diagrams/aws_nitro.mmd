@@ -1,0 +1,18 @@
+```mermaid
+graph TB
+    subgraph Nitro_System["AWS Nitro System"]
+        subgraph CustomerVMs["Customer EC2 VMs (100% CPU)"]
+            VM1["Customer VM 1"]
+            VM2["Customer VM 2"]
+        end
+        subgraph NitroCard["Nitro Card (Dedicated ASICs)"]
+            NHV["Nitro Hypervisor\nTiny KVM-based\nOnly CPU + memory virt"]
+            NNW["Nitro Network Card\nVPC encap/decap in hardware\nNo CPU tax"]
+            NStor["Nitro Storage Card\nEBS I/O in hardware\nNVMe over Fabric"]
+            NSec["Nitro Security Chip\nHardware root of trust\nInstance identity"]
+        end
+    end
+    VM1 & VM2 --> NHV
+    NNW --> VPC["VPC Network Fabric"]
+    NStor --> EBS["EBS Storage Network"]
+```

@@ -1,0 +1,23 @@
+```mermaid
+graph TB
+    Internet["Internet"] --> CF["CloudFront CDN"]
+    CF --> ALB["Application Load Balancer\nmulti-AZ, public subnets"]
+
+    subgraph VPC["VPC 10.0.0.0/16"]
+        subgraph Tier1["Tier 1: Presentation (Public Subnets)"]
+            ALB
+        end
+        subgraph Tier2["Tier 2: Application (Private Subnets)"]
+            ASG["EC2 Auto Scaling Group\nIAM Role attached\nSecrets Manager for DB creds"]
+        end
+        subgraph Tier3["Tier 3: Data (Isolated Private Subnets)"]
+            RDS["RDS PostgreSQL Multi-AZ\nEncrypted at rest\nNo public access"]
+            Cache["ElastiCache Redis\nSession data\nAPI response cache"]
+        end
+        NATGW["NAT Gateway\npublic subnet"] --> Internet2["Internet\n(outbound only)"]
+    end
+
+    ALB --> ASG
+    ASG --> RDS & Cache
+    ASG --> NATGW
+```
