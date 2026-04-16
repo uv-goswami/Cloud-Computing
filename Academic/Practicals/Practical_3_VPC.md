@@ -71,6 +71,7 @@
 3. IPv4 CIDR block: `10.0.0.0/16`
 4. Tenancy: Default (shared hardware)
 5. Click **Create VPC**
+![alt text](../../Diagrams/3_01_Created_VPC.png)
 
 **Why 10.0.0.0/16?** This is a private IP range (RFC 1918). /16 gives 65,536 addresses — plenty for practice.
 
@@ -82,6 +83,7 @@
 4. AZ: `ap-south-1a`
 5. IPv4 CIDR: `10.0.1.0/24` (256 addresses)
 6. Create
+![alt text](../../Diagrams/3_02_create_Subnet.png)
 
 **Private Subnet:**
 1. Create Subnet again

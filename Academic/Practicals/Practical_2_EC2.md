@@ -69,13 +69,17 @@
 
 ### Step 1: Navigate to EC2
 1. AWS Console → Services → Compute → EC2
+![P2](../../Diagrams/P2_1.png)
 2. Click **"Launch Instance"** (orange button)
+![P2_2](../../Diagrams/P2_2.png)
 
 ### Step 2: Name Your Instance
 - Name: `my-first-ec2` (anything descriptive)
+![name your instance](../../Diagrams/P2_3.png)
 
 ### Step 3: Choose AMI (OS Template)
 1. Under "Application and OS Images": Select **Amazon Linux 2 AMI**
+![P2_4](../../Diagrams/P2_4_AMI.png)
 2. Look for: **"Free tier eligible"** label
 3. Architecture: 64-bit (x86)
 
@@ -84,6 +88,7 @@
 ### Step 4: Choose Instance Type
 1. Select: **t2.micro** (1 vCPU, 1 GB RAM)
 2. Confirm "Free tier eligible" badge
+![P2_5   ](../../Diagrams/P2_5_Instance_type.png)
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
@@ -111,6 +116,7 @@
 1. "Network settings" → Click **"Edit"**
 2. Security group name: `my-first-sg`
 3. You'll see default: SSH (Port 22) from 0.0.0.0/0
+![P2_6_Security](../../Diagrams/P2_6_Security.png)
 
 **⚠️ WARNING:** Change SSH source from 0.0.0.0/0 to "My IP" for security!
 - Click dropdown → "My IP" → AWS auto-fills your current IP
@@ -122,7 +128,10 @@
 ### Step 8: Launch
 1. Review "Summary" panel on right
 2. Click **"Launch Instance"**
+
+![alt text](../../Diagrams/Launch_Instance.png)
 3. Wait 1-2 minutes → Status: "Running"
+![alt text](../../Diagrams/P2_7_launch.png)
 
 ---
 
@@ -137,6 +146,7 @@ chmod 400 ~/Downloads/my-first-key.pem
 
 ### Step 2: Get Public IP
 - EC2 Console → Your instance → Copy "Public IPv4 address"
+![alt text](../../Diagrams/2_8_console.png)
 
 ### Step 3: Connect
 ```bash
